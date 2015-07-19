@@ -8,7 +8,7 @@
     
     <body style="background: #000; width: 320px; margin: 0px; padding: 0px;">
     	<style>
-div
+divx
 {
 -webkit-animation: spin1 2s infinite linear;
 -moz-animation: spin1 2s infinite linear;
@@ -79,7 +79,7 @@ animation: spin1 2s infinite linear;
 			var a2 = 0.7;
 
 			var v3 = 0;
-			var r3 = 160;
+			var r3 = 40;
 			var a3 = 1.1;
 
 
@@ -165,6 +165,7 @@ animation: spin1 2s infinite linear;
 			  ctx1.rotate( Math.PI * 2 * (v2 % 60)/60 );
 		      ctx1.lineTo(r2, 0);
 
+		      ctx1.translate(r2, 0);
 			  ctx1.rotate( Math.PI * 2 * (v3 % 60)/60 );
 		      ctx1.lineTo(r3, 0);
 
@@ -184,13 +185,14 @@ animation: spin1 2s infinite linear;
 			  ctx2.drawImage(moon, r0 - 3.5, 0 - 3.5);
 
 			  ctx2.rotate( Math.PI * 2 * (v1 % 60)/60 );
-			  ctx2.drawImage(earth, r1 - 12, 0 - 12);
+			  ctx2.drawImage(moon, r1 - 3.5, 0 - 3.5);
 
 			  ctx2.rotate( Math.PI * 2 * (v2 % 60)/60 );
-			  ctx2.drawImage(moon, r2 -3.5, 0 - 3.5);
+			  ctx2.drawImage(earth, r2 - 12, 0 - 12);
 
+			  ctx2.translate(r2, 0);
 			  ctx2.rotate( Math.PI * 2 * (v3 % 60)/60 );
-			  ctx2.drawImage(moon, r3 -3.5, 0 - 3.5);
+			  ctx2.drawImage(moon, r3 - 12, 0 - 12);
 
 
 			  ctx2.restore();
