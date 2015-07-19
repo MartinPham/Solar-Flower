@@ -1,0 +1,136 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+    	<meta name="viewport" content="width=device-width">
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <title>Flower</title>
+    </head>
+    
+    <body style="background: #000; width: 320px; margin: 0px; padding: 0px;">
+   		<div style="position: relative; width: 320px; height: 320px; ">
+	    	<canvas id="canvas1" width="320" height="320" style="position: absolute; z-index: -1"></canvas>
+	    	<canvas id="canvas2" width="320" height="320" style="position: absolute; z-index: 1"></canvas>
+	    </div>
+	    <input type="range" id="range1" onchange="rangeChange()" style="width: 100%" min="1" max="21"/>
+	    <input type="range" id="range2" onchange="rangeChange()" style="width: 100%" min="1" max="31"/>
+    	<script>
+    		var range1 = document.getElementById('range1');
+    		var range2 = document.getElementById('range2');
+
+    		function rangeChange()
+    		{
+    			predraw();
+
+    			v1 = v2 = 0;
+    			a1 = range1.value/10;
+    			a2 = range2.value/10;
+
+    			// console.log([a0, a1, a2]);
+    		}
+
+
+			var v1 = 0;
+			var r1 = 100;
+			var a1 = 1.5;
+
+			var v2 = 0;
+			var r2 = 150;
+			var a2 = 3.1;
+
+
+			var canvas1 = document.getElementById('canvas1');
+			var ctx1 = canvas1.getContext('2d');
+			ctx1.globalCompositeOperation = 'destination-over';
+			ctx1.fillStyle = 'rgba(0,0,0,0.4)';
+			ctx1.strokeStyle = 'rgba(0,153,255,0.4)';
+
+			var canvas2 = document.getElementById('canvas2');
+			var ctx2 = canvas2.getContext('2d');
+			ctx2.globalCompositeOperation = 'destination-over';
+
+			var moon = new Image();
+			var earth = new Image();
+			moon.src = './Canvas_moon.png';
+			earth.src = './Canvas_earth.png';
+			  
+
+			function predraw()
+			{
+				ctx1.clearRect(0, 0, canvas1.offsetWidth, canvas1.offsetHeight); 
+	    		ctx2.clearRect(0, 0, canvas2.offsetWidth, canvas2.offsetHeight); 
+
+
+				// 1st circle
+				ctx1.beginPath();
+				ctx1.arc(canvas1.offsetWidth/2, canvas1.offsetHeight/2, r1, 0, Math.PI*2, false);
+				ctx1.stroke();
+
+				// 2nd circle
+				ctx1.beginPath();
+				ctx1.arc(canvas1.offsetWidth/2, canvas1.offsetHeight/2, r2, 0,Math.PI*2, false);
+				ctx1.stroke();
+			}
+			function init()
+			{
+			  // window.requestAnimationFrame(draw);
+
+			  range1.value = a1*10;
+			  range2.value = a2*10;
+
+    		  predraw();
+
+			  
+
+			  setInterval(draw, 50);
+			}
+
+			function draw() 
+			{
+			  v1 += a1;
+			  v2 += a2;
+
+			  
+
+
+			  ctx1.save();
+
+			  ctx1.translate(canvas1.offsetWidth/2, canvas1.offsetHeight/2);
+
+
+			  ctx1.beginPath();
+      
+			  ctx1.rotate( Math.PI * 2 * (v1 % 60)/60 );
+			  ctx1.moveTo(r1, 0);
+
+			  ctx1.rotate( Math.PI * 2 * (v2 % 60)/60 );
+		      ctx1.lineTo(r2, 0);
+
+		      ctx1.stroke();
+
+			  ctx1.restore();
+			  
+			  
+			  ctx2.clearRect(0, 0, canvas2.offsetWidth, canvas2.offsetHeight);
+
+			  ctx2.save();
+
+			  ctx2.translate(canvas2.offsetWidth/2, canvas2.offsetHeight/2);
+
+      
+
+			  ctx2.rotate( Math.PI * 2 * (v1 % 60)/60 );
+			  ctx2.drawImage(earth, r1 - 12, 0 - 12);
+
+			  ctx2.rotate( Math.PI * 2 * (v2 % 60)/60 );
+			  ctx2.drawImage(moon, r2 -3.5, 0 - 3.5);
+
+
+			  ctx2.restore();
+
+			  // window.requestAnimationFrame(draw);
+			}
+
+			window.onload = init;
+    	</script>
+    </body>
+</html>
