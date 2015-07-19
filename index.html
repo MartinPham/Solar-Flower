@@ -11,9 +11,9 @@
 	    	<canvas id="canvas1" width="320" height="320" style="position: absolute; z-index: -1"></canvas>
 	    	<canvas id="canvas2" width="320" height="320" style="position: absolute; z-index: 1"></canvas>
 	    </div>
-	    <input type="range" id="range0" onchange="rangeChange()" style="width: 100%" min="1" max="20"/>
-	    <input type="range" id="range1" onchange="rangeChange()" style="width: 100%" min="1" max="20"/>
-	    <input type="range" id="range2" onchange="rangeChange()" style="width: 100%" min="1" max="20"/>
+	    <input type="range" id="range0" onchange="rangeChange()" style="width: 100%" min="1" max="31"/>
+	    <input type="range" id="range1" onchange="rangeChange()" style="width: 100%" min="1" max="31"/>
+	    <input type="range" id="range2" onchange="rangeChange()" style="width: 100%" min="1" max="31"/>
     	<script>
     		var range0 = document.getElementById('range0');
     		var range1 = document.getElementById('range1');
@@ -24,20 +24,20 @@
     			predraw();
 
     			v0 = v1 = v2 = 0;
-    			a0 = range0.value/10;
-    			a1 = range1.value/10;
-    			a2 = range2.value/10;
+    			a0 = (range0.value - 10)/10;
+    			a1 = (range1.value - 10)/10;
+    			a2 = (range2.value - 10)/10;
 
-    			// console.log([a0, a1, a2]);
+    			console.log([a0, a1, a2]);
     		}
 
 			var v0 = 0;
 			var r0 = 60;
-			var a0 = 0.7;
+			var a0 = -0.7;
 
 			var v1 = 0;
 			var r1 = 100;
-			var a1 = 0.5;
+			var a1 = -0.5;
 
 			var v2 = 0;
 			var r2 = 150;
@@ -82,17 +82,17 @@
 			}
 			function init()
 			{
-			  // window.requestAnimationFrame(draw);
 
-			  range0.value = a0*10;
-			  range1.value = a1*10;
-			  range2.value = a2*10;
+			  range0.value = a0*10 + 10;
+			  range1.value = a1*10 + 10;
+			  range2.value = a2*10 + 10;
 
     		  predraw();
 
 			  
 
-			  setInterval(draw, 50);
+			  // setInterval(draw, 0.1);
+			  window.requestAnimationFrame(draw);
 			}
 
 			function draw() {
@@ -143,7 +143,7 @@
 
 			  ctx2.restore();
 
-			  // window.requestAnimationFrame(draw);
+			  window.requestAnimationFrame(draw);
 			}
 
 			window.onload = init;
